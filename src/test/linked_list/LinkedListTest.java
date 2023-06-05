@@ -1,7 +1,6 @@
 package linked_list;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class LinkedListTest {
 
@@ -18,41 +18,36 @@ public class LinkedListTest {
     LinkedList list4 = new LinkedList();
     LinkedList list5 = new LinkedList();
 
-    private final ArrayList<Node> nodes = new ArrayList<>();
-
     public LinkedListTest() {
+    }
+
+    private void headOnly(LinkedList list) {
+        list.addInTail(new Node(0));
+    }
+
+    private void headAndTail(LinkedList list) {
+        list.addInTail(new Node(0));
+        list.addInTail(new Node(9));
+    }
+
+    private void tenDifferentNodesList(LinkedList list) {
         for (int i = 0; i < 10; i++) {
-            nodes.add(new Node(i));
+            list.addInTail(new Node(i));
         }
     }
 
-    private void headOnly(LinkedList list1) {
-        list1.addInTail(nodes.get(0));
-    }
-
-    private void headAndTail(LinkedList list1) {
-        list1.addInTail(nodes.get(0));
-        list1.addInTail(nodes.get(nodes.size() - 1));
-    }
-
-    private void tenDifferentNodesList(LinkedList list1) {
-        for (Node node : nodes) {
-            list1.addInTail(node);
-        }
-    }
-
-    private void allTenNodesAreSameList(LinkedList list1) {
+    private void allTenNodesAreSameList(LinkedList list) {
         for (int i = 0; i < 10; i++) {
-            list1.addInTail(nodes.get(0));
+            list.addInTail(new Node(0));
         }
     }
 
-    private void halvesAreDifferentNodesAreSameList(LinkedList list1) {
-        for (int i = 0; i < nodes.size() - 1; i++) {
-            if (i < (nodes.size() - 1) / 2) {
-                list1.addInTail(nodes.get(0));
+    private void halvesAreDifferentNodesAreSameList(LinkedList list) {
+        for (int i = 0; i < 10; i++) {
+            if (i < 5) {
+                list.addInTail(new Node(0));
             } else {
-                list1.addInTail(nodes.get(nodes.size() - 1));
+                list.addInTail(new Node(9));
             }
         }
     }
@@ -94,6 +89,24 @@ public class LinkedListTest {
         ArrayList<Node> actual15 = list5.findAll(12);
 
         assertEquals(List.of(new Node(0)), actual1);
+        assertEquals(List.of(), actual2);
+        assertEquals(List.of(new Node(0)), actual3);
+        assertEquals(List.of(new Node(9)), actual4);
+        assertEquals(List.of(), actual5);
+        assertEquals(List.of(new Node(0)), actual6);
+        assertEquals(List.of(new Node(3)), actual7);
+        assertEquals(List.of(new Node(9)), actual8);
+        assertEquals(List.of(), actual9);
+        assertEquals(List.of(new Node(0), new Node(0), new Node(0),
+                new Node(0), new Node(0), new Node(0), new Node(0),
+                new Node(0), new Node(0), new Node(0)), actual10);
+        assertEquals(List.of(), actual11);
+        assertEquals(List.of(new Node(0), new Node(0), new Node(0),
+                new Node(0), new Node(0)), actual12);
+        assertEquals(List.of(new Node(9), new Node(9), new Node(9),
+                new Node(9), new Node(9)), actual13);
+        assertEquals(List.of(), actual14);
+        assertEquals(List.of(), actual15);
     }
 
     @Test

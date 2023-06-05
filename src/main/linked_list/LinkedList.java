@@ -35,12 +35,13 @@ public class LinkedList
 
         ArrayList<Node> nodes = new ArrayList<Node>();
 
-        if (isNull()) {
+        if (!isNull()) {
             Node node = this.head;
-            while (node.next != null) {
+            while (node != null) {
                 if (node.value == _value) {
                     nodes.add(node);
                 }
+                node = node.next;
             }
         }
 
@@ -119,8 +120,9 @@ public class LinkedList
 
         int counter = 0;
         Node node = this.head;
-        while (node.next != null) {
+        while (node != null) {
             counter++;
+            node = node.next;
         }
 
         return counter; // здесь будет ваш код подсчёта количества элементов в списке
@@ -161,5 +163,17 @@ class Node
     {
         value = _value;
         next = null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Node node)) return false;
+        return value == node.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
